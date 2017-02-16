@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -31,7 +32,12 @@ namespace ConsoleApp1
             var json = await response.Content.ReadAsStringAsync();
 
             // 標準出力に表示。取得した生のJSONデータがコンソールに出力される
-            Console.WriteLine(json);
+            //Console.WriteLine(json);
+
+            // Json.NET で、JSON をデシリアライズします。
+            // ここで、C#の機能のひとつである dynamic という、型の無い動的なオブジェクトとして受け取ります
+            dynamic result = JsonConvert.DeserializeObject(json);
+            Console.WriteLine(result.description.text);
         }
     }
 }
